@@ -2,12 +2,13 @@
 
 > 去 AI 味人工改写技能 —— 把 AI 生成的文章，改写成"人工逐句扩写痕迹很重"的公众号正文风格。
 
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](./LICENSE)
-[![Skill Type](https://img.shields.io/badge/Type-WorkBuddy%20Skill-blue)](./SKILL.md)
+![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)
+
+![Skill Type](https://img.shields.io/badge/Type-Agent%20Skill-blue)
 
 ## 这是什么
 
-一个 [WorkBuddy](https://www.workbuddy.cn) 技能（Skill）。它的作用很简单：把你提供的文章，从**简洁、压缩、AI 感较强**的表达，逐句改写成**像人工一个字一个字扩写出来的**风格。
+一个通用的 Agent 技能（Skill），遵循标准 SKILL.md 规范，可安装到任意支持技能机制的 Agent 中。它的作用很简单：把你提供的文章，从**简洁、压缩、AI 感较强**的表达，逐句改写成**像人工一个字一个字扩写出来的**风格。
 
 它追求的不是文采，而是明显的人工改写痕迹：
 
@@ -29,24 +30,31 @@
 
 ## 安装
 
-### 方式一：克隆安装（推荐）
+本仓库遵循通用的 **SKILL.md 规范**（在 Markdown 文件顶部以 YAML frontmatter 声明 `name` 与 `description`），因此不绑定任何单一产品——只要你的 Agent 支持"技能目录 + SKILL.md"机制，都可以直接加载。把仓库根目录整体放进对应 Agent 的技能目录即可。
+
+### 方式一：克隆到技能目录（推荐）
+
+将仓库克隆到你的 Agent 约定的技能目录下。不同 Agent 的路径不同，举例如下：
+
+- **WorkBuddy**：`~/.workbuddy/skills/humanize-rewrite`（Windows 为 `C:\Users\<用户名>\.workbuddy\skills\humanize-rewrite`）
+- **其他支持 skills 的 Agent**：放置到该 Agent 读取技能的目录（通常形如 `<agent 配置目录>/skills/humanize-rewrite`）
 
 ```bash
-git clone https://github.com/Beihaiyumao/humanize-rewrite.git ~/.workbuddy/skills/humanize-rewrite
+git clone https://github.com/Beihaiyumao/humanize-rewrite.git <你的技能目录>/humanize-rewrite
 ```
 
-> Windows 用户路径为 `C:\Users\<用户名>\.workbuddy\skills\humanize-rewrite`。
-
-克隆完成后重启 WorkBuddy 会话，技能即可被识别。
+克隆完成后重启 Agent 会话，技能即被识别并可在对话中触发。
 
 ### 方式二：手动复制
 
 1. 下载本仓库的 ZIP 包并解压。
-2. 把解压出的 `SKILL.md` 和 `references/` 整体放入 `~/.workbuddy/skills/humanize-rewrite/` 目录。
+2. 把解压出的 `SKILL.md` 和 `references/` 整体放入你的 Agent 技能目录下的 `humanize-rewrite/` 子目录。
+
+> 说明：`SKILL.md` 顶部的 `name` / `description` 字段是技能被识别和触发的关键，请勿删除或改名；`references/` 目录存放改写手法详解，改写时会自动读取。
 
 ## 使用
 
-安装后，在 WorkBuddy 对话中直接说：
+安装后，在你的 Agent 对话中直接说：
 
 ```
 用 humanize-rewrite 改写这篇文章：
@@ -59,9 +67,9 @@ git clone https://github.com/Beihaiyumao/humanize-rewrite.git ~/.workbuddy/skill
 
 ## 技能包含什么
 
-| 文件 | 说明 |
-|------|------|
-| `SKILL.md` | 技能主文件：触发条件、保真规则、逐句改写流程、输出要求 |
+| 文件                               | 说明                                               |
+| -------------------------------- | ------------------------------------------------ |
+| `SKILL.md`                       | 技能主文件：触发条件、保真规则、逐句改写流程、输出要求                      |
 | `references/rewrite-patterns.md` | 改写手法详解：短句拉长对照表、连接词清单、口语词映射表、术语解释化规则、段落示例、7 步自检流程 |
 
 ## 核心规则速览
